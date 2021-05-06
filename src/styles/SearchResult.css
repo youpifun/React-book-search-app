@@ -1,0 +1,9 @@
+.resultBlock {
+    width: 500px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.hidden {
+    display: none
+}

@@ -27,6 +27,12 @@ class App extends React.Component {
     };
 
     getBooks(searchText) {
+        let container = document.getElementsByClassName('resultBlock')[0];
+        if (!searchText) {
+            container.classList.toggle('hidden');
+            return
+        };
+        container.classList.toggle('hidden');
         let url = "http://openlibrary.org/search.json?title=";
         url += encodeURI(searchText.trim());
         url += "*&fields=title,author_name,cover_i,publish_year,isbn";
