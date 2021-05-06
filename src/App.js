@@ -6,16 +6,40 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchText: ''
+            searchText: '',
+            searchResult: []
         }
         this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
+        this.getBooks = this.getBooks.bind(this);
     };
 
     handleSearchTextChange(searchText) {
         this.setState({
             searchText: searchText
         });
+        let previousCall = this.lastCall;
+        this.lastCall = Date.now();
+        if (previousCall && ((this.lastCall - previousCall) <= 1000)) {
+            clearTimeout(this.lastCallTimer);
+        }
+        this.lastCallTimer = setTimeout(() => this.getBooks(searchText), 1000);
+        
     };
+
+    getBooks(searchText) {
+        let url = "http://openlibrary.org/search.json?title=";
+        url += encodeURI(searchText.trim());
+        url += "*&fields=title,author_name,cover_i,publish_year,isbn";
+        let result = [];
+        fetch(url).then(response => response.json()).then(data => {
+            data.docs.map((el,i) => {
+                result[i] = el;
+            });
+            this.setState({
+                searchResult: result
+            });
+        });
+    }
 
     render() {
         return (
@@ -25,7 +49,7 @@ class App extends React.Component {
                     onSearchTextChange = {this.handleSearchTextChange}
                 />
                 <SearchResult 
-                    searchText = {this.state.searchText}
+                    searchResult = {this.state.searchResult}
                 />
             </div>
         )

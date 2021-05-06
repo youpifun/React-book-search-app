@@ -21,7 +21,7 @@ class SearchBar extends React.Component <searchBarProps> {
                 type="text"
                 placeholder="Search"
                 value={this.props.searchText}
-                onChange={this.handleSearchTextChange}
+                onInput={this.handleSearchTextChange}
             />
         )
     }
