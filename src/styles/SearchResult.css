@@ -7,3 +7,29 @@
 .hidden {
     display: none
 }
+
+.resultRow {
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    padding: 10px 0px;
+}
+
+.resultRow:first-child{
+    border-top: 1px solid black;
+}
+
+.resultRow:hover {
+    background-color: gray;
+}
+
+.resultRow__thumb {
+    width: 50px;
+    height: 70px;
+    float: left;
+    border: 1px solid black;
+    margin: 0px 20px;
+}
+
+p {
+    margin: 0;
+}

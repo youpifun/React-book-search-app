@@ -32,10 +32,10 @@ class App extends React.Component {
             container.classList.toggle('hidden');
             return
         };
-        container.classList.toggle('hidden');
-        let url = "http://openlibrary.org/search.json?title=";
+        container.classList.remove('hidden');
+        let url = "http://openlibrary.org/search.json?q=";
         url += encodeURI(searchText.trim());
-        url += "*&fields=title,author_name,cover_i,publish_year,isbn";
+        url += "*&fields=title,author_name,cover_i,publish_year,isbn&limit=10";
         let result = [];
         fetch(url).then(response => response.json()).then(data => {
             data.docs.map((el,i) => {
@@ -44,6 +44,7 @@ class App extends React.Component {
             this.setState({
                 searchResult: result
             });
+            console.log(data.docs)
         });
     }
 
