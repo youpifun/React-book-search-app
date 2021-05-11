@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/SearchResult.css'
 import placeholderImage from '../assets/noimage.jpg'
 type SearchResultProps = {
-    searchResult: Array <any>,
+    resultRow: BookData,
     onRowClick: Function
 }
 
@@ -16,11 +16,6 @@ type BookData = {
 }
 
 class SearchResult extends React.Component <SearchResultProps> {
-    constructor (props: SearchResultProps) {
-        super(props);
-        this.handleRowClick = this.handleRowClick.bind(this);
-    }
-
     getImage(cover_i:number) : string {
         let url = "http://covers.openlibrary.org/b/id/"+cover_i+"-S.jpg";
         if (cover_i!==undefined && cover_i>0) {
@@ -36,22 +31,24 @@ class SearchResult extends React.Component <SearchResultProps> {
         return placeholderImage;
     }
 
-    handleRowClick(bookData : BookData) {
-        this.props.onRowClick(bookData);
+    shouldComponentUpdate(newProps : any, newState:any) : boolean {
+        return this.props.resultRow !== newProps.resultRow;
     }
 
     render() {
+        let {title , author_name, cover_i, publish_year} = this.props.resultRow;
+        let imgSrc = this.getImage(cover_i);
+        let firstYearOfPulish = Math.min.apply(null, publish_year);
+        const rowClick = () =>this.props.onRowClick()
         return(
-            <div id="some" className="resultBlock" >
-                {this.props.searchResult.map((element : any, index : number) => (
-                    <div className="resultRow" key={index} onClick={() => this.handleRowClick(element)}>
-                        <img id={"picture_"+index} className="resultRow__thumb" src={this.getImage(element.cover_i)} alt={element.title}/>
-                        <p>Заголовок: {element.title}</p>
-                        <p>Имя автора: {element.author_name}</p>
-                        <p>Год издательства: {Math.min.apply(null, element.publish_year)}</p>
+                <div className="resultRow" onClick={rowClick}>
+                    <img className="resultRow__thumb" src={imgSrc} alt={title}/>
+                    <div className="resultRow__info-block">
+                        <p>Заголовок: {title}</p>
+                        <p>Имя автора: {author_name}</p>
+                        <p>Год издательства: {firstYearOfPulish}</p>
                     </div>
-                ))}
-            </div>
+                </div>
         )
     }
 }

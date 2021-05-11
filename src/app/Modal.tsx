@@ -1,10 +1,11 @@
 import React from 'react'
 import placeholderImage from '../assets/noimage.jpg'
+import preloader from '../assets/preloader.gif'
 
 interface BookDataProps {
     bookData: {
         title: string,
-        author_name: string,
+        author_name: Array<string>,
         cover_i: number,
         publish_year : Array<number>,
         isbn : Array<number>
@@ -13,10 +14,10 @@ interface BookDataProps {
 }
 
 class Modal extends React.Component <BookDataProps> {
-    constructor(props:BookDataProps) {
-        super(props);
-        this.closeModal = this.closeModal.bind(this);
+    state = {
+        isVisible : false
     }
+
     componentDidMount() {
         let img = new Image();
         img.id = "largeCover"
@@ -26,10 +27,6 @@ class Modal extends React.Component <BookDataProps> {
 
     componentWillUnmount() {
         document.getElementById("largeCover")?.remove();
-    }
-
-    shouldComponentUpdate(){
-        return true;
     }
 
     getImage(img:HTMLImageElement, cover_i:number) : string {
@@ -45,33 +42,45 @@ class Modal extends React.Component <BookDataProps> {
                 }
               };
         request.send(null);
+        } else {
+            return placeholderImage
         }
-        return placeholderImage;
+        return preloader;
     }
 
     closeModal() {
         this.props.onCloseModal();
     }
 
-    getInfoString(arr:Array<number>) :string {
+    getInfoString(arr:Array<any>) :string {
         let res = '';
+        if (arr!==undefined) {
         arr.forEach(e => res+=e+', ')
         res = res.slice(0, -2);
+        } else {
+            res = '-'
+        }
         return res;
     }
 
+    
     render() {
+        const close = () => this.closeModal();
+        let {title , author_name, cover_i, publish_year, isbn} = this.props.bookData;
+        let name = this.getInfoString(author_name);
+        let years = this.getInfoString(publish_year);
+        let bookIsbns = this.getInfoString(isbn);
         return(
             <div className="modalWindow">
                 <div className="info-wrapper">
                     <div className="modalWindow__image"></div>
                     <div className="modalWindow__information">
-                        <div>Заголовок: {this.props.bookData.title}</div>
-                        <div>Имя автора: {this.props.bookData.author_name}</div>
-                        <div>Годы издательства: {this.getInfoString(this.props.bookData.publish_year)}</div>
-                        <div>ISBN: {this.getInfoString(this.props.bookData.isbn)}</div>
+                        <div className="information__row">Заголовок: {title}</div>
+                        <div className="information__row">Имя автора: {name}</div>
+                        <div className="information__row">Годы издательства: {years}</div>
+                        <div className="information__row">ISBN: {bookIsbns}</div>
                     </div>
-                    <div className="modalWindow__close" onClick={()=>{this.closeModal()}}>X</div>
+                    <div className="modalWindow__close" onClick={close}>X</div>
                 </div>
             </div>
         )

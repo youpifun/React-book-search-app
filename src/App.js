@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './app/SearchBar.tsx'
 import SearchResult from './app/SearchResult.tsx'
 import Modal from './app/Modal.tsx'
+import preloaderUrl from './assets/preloader.gif'
 
 class App extends React.Component {
     constructor(props) {
@@ -14,25 +15,23 @@ class App extends React.Component {
             isModalActive: false
         }
         this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
-        this.getBooks = this.getBooks.bind(this);
-        this.handleRowClick = this.handleRowClick.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
     };
 
-    handleSearchTextChange(searchText) {
-        this.setState({
-            searchText: searchText
-        });
-        let previousCall = this.lastCall;
-        this.lastCall = Date.now();
-        if (previousCall && ((this.lastCall - previousCall) <= 1000)) {
-            clearTimeout(this.lastCallTimer);
+    handleSearchTextChange(searchTextEvent, type = "input") {
+        let searchText, num;
+        if (type === "input") {
+            searchText = searchTextEvent.target.value;
+            num = 10;
+        } else {
+            searchText = searchTextEvent.value;
+            num = 30;
         }
-        this.lastCallTimer = setTimeout(() => this.getBooks(searchText), 1000);
-        
+        clearTimeout(this.lastCallTimer);
+        this.lastCallTimer = setTimeout(() => this.getBooks(searchText, num), 1000);
     };
 
-    getBooks(searchText) {
+    getBooks(searchText, num) {
         if (!searchText) {
             this.setState({
                 searchResult: [],
@@ -41,11 +40,17 @@ class App extends React.Component {
             return
         };
         this.setState({
+            searchResult: [],
             isSearchResultActive: true
         })
+        let preloader = new Image();
+        let resultBlock = document.getElementsByClassName("resultBlock")[0]
+        preloader.src = preloaderUrl;
+        preloader.classList.add("resultBlock__preloader");
+        resultBlock.appendChild(preloader);
         let url = "http://openlibrary.org/search.json?q=";
         url += encodeURI(searchText.trim());
-        url += "*&fields=title,author_name,cover_i,publish_year,isbn&limit=10";
+        url += "*&fields=title,author_name,cover_i,publish_year,isbn&limit="+num;
         let result = [];
         fetch(url).then(response => response.json()).then(data => {
             data.docs.forEach((el,i) => {
@@ -54,6 +59,7 @@ class App extends React.Component {
             this.setState({
                 searchResult: result
             });
+            preloader.remove(preloader);
         });
     }
 
@@ -71,18 +77,30 @@ class App extends React.Component {
     }
 
     render() {
+        let text = document.getElementById("searchInput");
+        const searchBtnClick = () => this.handleSearchTextChange(text, "click");
         return (
-            <div>
-                <SearchBar 
-                    searchText = {this.state.searchText}
-                    onSearchTextChange = {this.handleSearchTextChange}
-                />
-                {(this.state.isSearchResultActive)&&(<SearchResult 
-                    searchResult = {this.state.searchResult}
-                    onRowClick = {this.handleRowClick}
-                />)}
-                { (this.state.isModalActive) && (<Modal bookData = {this.state.bookData} onCloseModal = {this.handleCloseModal}/>)}
+            <>
+            <div className="contentBlock">
+                <div className="searchWrapper">
+                    <SearchBar
+                        onSearchTextChange = {this.handleSearchTextChange}
+                    />
+                    <button className="searchWrapper__btn" onClick={searchBtnClick}>Искать</button>
+                </div>
+                {(this.state.isSearchResultActive)&&(
+                <div className="resultBlock">
+                    {this.state.searchResult.map((resultRow) => (
+                    <SearchResult 
+                        resultRow = {resultRow}
+                        onRowClick = {() => this.handleRowClick(resultRow)}
+                    />
+                    ))}
+                </div>
+                )}
             </div>
+            { (this.state.isModalActive) && (<Modal bookData = {this.state.bookData} onCloseModal = {this.handleCloseModal}/>)}
+            </>
         )
     }
 }
