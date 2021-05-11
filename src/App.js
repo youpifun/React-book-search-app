@@ -48,7 +48,7 @@ class App extends React.Component {
         preloader.src = preloaderUrl;
         preloader.classList.add("resultBlock__preloader");
         resultBlock.appendChild(preloader);
-        let url = "http://openlibrary.org/search.json?q=";
+        let url = "https://openlibrary.org/search.json?q=";
         url += encodeURI(searchText.trim());
         url += "*&fields=title,author_name,cover_i,publish_year,isbn&limit="+num;
         let result = [];

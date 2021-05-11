@@ -30,7 +30,7 @@ class Modal extends React.Component <BookDataProps> {
     }
 
     getImage(img:HTMLImageElement, cover_i:number) : string {
-        let url = "http://covers.openlibrary.org/b/id/"+cover_i+"-L.jpg";
+        let url = "https://covers.openlibrary.org/b/id/"+cover_i+"-L.jpg";
         if (cover_i!==undefined && cover_i>0) {
             let request = new XMLHttpRequest();
             request.open("GET", url, true);

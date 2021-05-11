@@ -17,7 +17,7 @@ type BookData = {
 
 class SearchResult extends React.Component <SearchResultProps> {
     getImage(cover_i:number) : string {
-        let url = "http://covers.openlibrary.org/b/id/"+cover_i+"-S.jpg";
+        let url = "https://covers.openlibrary.org/b/id/"+cover_i+"-S.jpg";
         if (cover_i!==undefined && cover_i>0) {
             let request = new XMLHttpRequest();
             request.open("GET", url, false);
