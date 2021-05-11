@@ -11,8 +11,11 @@
 }
 
 .resultBlock {
+    margin-top: 5px;
+    border: 2px solid gray;
     position: relative;
-    height: 300px;
+    min-height: 80px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -23,8 +26,17 @@
     transform: translate(-50%, -50%);
 }
 
+.resultBlock__notFound {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    font-weight: 600;
+}
+
 .contentBlock {
     width: 50%;
+    max-width: 600px;
     min-width: 300px;
     border: 2px solid gray;
     border-radius: 15px;

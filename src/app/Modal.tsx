@@ -68,7 +68,7 @@ class Modal extends React.Component <BookDataProps> {
         const close = () => this.closeModal();
         let {title , author_name, cover_i, publish_year, isbn} = this.props.bookData;
         let name = this.getInfoString(author_name);
-        let years = this.getInfoString(publish_year);
+        let years = this.getInfoString(publish_year.sort());
         let bookIsbns = this.getInfoString(isbn);
         return(
             <div className="modalWindow">

@@ -40,6 +40,7 @@ class App extends React.Component {
             return
         };
         this.setState({
+            searchText: searchText,
             searchResult: [],
             isSearchResultActive: true
         })
@@ -49,13 +50,13 @@ class App extends React.Component {
         preloader.classList.add("resultBlock__preloader");
         resultBlock.appendChild(preloader);
         let url = "https://openlibrary.org/search.json?q=";
-        url += encodeURI(searchText.trim());
-        url += "*&fields=title,author_name,cover_i,publish_year,isbn&limit="+num;
+        url += encodeURI(searchText.trim()) + "*&fields=title,author_name,cover_i,publish_year,isbn&limit="+num;
         let result = [];
         fetch(url).then(response => response.json()).then(data => {
             data.docs.forEach((el,i) => {
                 result[i] = el;
             });
+            result = result!="" ? result : "empty"
             this.setState({
                 searchResult: result
             });
@@ -90,12 +91,15 @@ class App extends React.Component {
                 </div>
                 {(this.state.isSearchResultActive)&&(
                 <div className="resultBlock">
-                    {this.state.searchResult.map((resultRow) => (
-                    <SearchResult 
-                        resultRow = {resultRow}
-                        onRowClick = {() => this.handleRowClick(resultRow)}
-                    />
+                    {this.state.searchResult!="empty"&&this.state.searchResult.map((resultRow) => (
+                        <SearchResult
+                            resultRow = {resultRow}
+                            onRowClick = {() => this.handleRowClick(resultRow)}
+                        />
                     ))}
+                    {(this.state.searchResult=="empty")&&(<div className="resultBlock__notFound">
+                        По запросу {this.state.searchText} книг не найдено =(
+                    </div>)}
                 </div>
                 )}
             </div>
