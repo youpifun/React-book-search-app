@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/React-book-search-app/static/css/main.7ea5aa9b.chunk.css",
-    "main.js": "/React-book-search-app/static/js/main.05b74150.chunk.js",
-    "main.js.map": "/React-book-search-app/static/js/main.05b74150.chunk.js.map",
+    "main.css": "/React-book-search-app/static/css/main.11464817.chunk.css",
+    "main.js": "/React-book-search-app/static/js/main.433a9558.chunk.js",
+    "main.js.map": "/React-book-search-app/static/js/main.433a9558.chunk.js.map",
     "runtime-main.js": "/React-book-search-app/static/js/runtime-main.08041ba6.js",
     "runtime-main.js.map": "/React-book-search-app/static/js/runtime-main.08041ba6.js.map",
     "static/js/2.8dbcf3c1.chunk.js": "/React-book-search-app/static/js/2.8dbcf3c1.chunk.js",
     "static/js/2.8dbcf3c1.chunk.js.map": "/React-book-search-app/static/js/2.8dbcf3c1.chunk.js.map",
     "index.html": "/React-book-search-app/index.html",
-    "static/css/main.7ea5aa9b.chunk.css.map": "/React-book-search-app/static/css/main.7ea5aa9b.chunk.css.map",
+    "static/css/main.11464817.chunk.css.map": "/React-book-search-app/static/css/main.11464817.chunk.css.map",
     "static/js/2.8dbcf3c1.chunk.js.LICENSE.txt": "/React-book-search-app/static/js/2.8dbcf3c1.chunk.js.LICENSE.txt",
     "static/media/noimage.e1ce751e.jpg": "/React-book-search-app/static/media/noimage.e1ce751e.jpg",
     "static/media/preloader.d3fbaf2b.gif": "/React-book-search-app/static/media/preloader.d3fbaf2b.gif"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.08041ba6.js",
     "static/js/2.8dbcf3c1.chunk.js",
-    "static/css/main.7ea5aa9b.chunk.css",
-    "static/js/main.05b74150.chunk.js"
+    "static/css/main.11464817.chunk.css",
+    "static/js/main.433a9558.chunk.js"
   ]
 }
