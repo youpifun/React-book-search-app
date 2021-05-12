@@ -51,25 +51,13 @@ class Modal extends React.Component <BookDataProps> {
     closeModal() {
         this.props.onCloseModal();
     }
-
-    getInfoString(arr:Array<any>) :string {
-        let res = '';
-        if (arr!==undefined) {
-        arr.forEach(e => res+=e+', ')
-        res = res.slice(0, -2);
-        } else {
-            res = '-'
-        }
-        return res;
-    }
-
     
     render() {
         const close = () => this.closeModal();
         let {title , author_name, cover_i, publish_year, isbn} = this.props.bookData;
-        let name = this.getInfoString(author_name);
-        let years = this.getInfoString(publish_year.sort());
-        let bookIsbns = this.getInfoString(isbn);
+        let name = author_name.join(", ");
+        let years = publish_year.sort().join(", ");
+        let bookIsbns = isbn.join(", ");
         return(
             <div className="modalWindow">
                 <div className="info-wrapper">

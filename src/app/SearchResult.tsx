@@ -31,24 +31,13 @@ class SearchResult extends React.Component <SearchResultProps> {
         return placeholderImage;
     }
 
-    getInfoString(arr:Array<string>) :string {
-        let res = '';
-        if (arr!==undefined) {
-        arr.forEach(e => res+=e+', ')
-        res = res.slice(0, -2);
-        } else {
-            res = '-'
-        }
-        return res;
-    }
-
     shouldComponentUpdate(newProps : any, newState:any) : boolean {
         return this.props.resultRow !== newProps.resultRow;
     }
 
     render() {
         let {title , author_name, cover_i, publish_year} = this.props.resultRow;
-        let name = this.getInfoString(author_name);
+        let name = author_name.join(', ');
         let imgSrc = this.getImage(cover_i);
         let firstYearOfPulish = Math.min.apply(null, publish_year);
         const rowClick = () =>this.props.onRowClick()
