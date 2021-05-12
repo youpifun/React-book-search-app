@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/React-book-search-app/static/css/main.11464817.chunk.css",
-    "main.js": "/React-book-search-app/static/js/main.433a9558.chunk.js",
-    "main.js.map": "/React-book-search-app/static/js/main.433a9558.chunk.js.map",
+    "main.js": "/React-book-search-app/static/js/main.f810a6cb.chunk.js",
+    "main.js.map": "/React-book-search-app/static/js/main.f810a6cb.chunk.js.map",
     "runtime-main.js": "/React-book-search-app/static/js/runtime-main.08041ba6.js",
     "runtime-main.js.map": "/React-book-search-app/static/js/runtime-main.08041ba6.js.map",
     "static/js/2.8dbcf3c1.chunk.js": "/React-book-search-app/static/js/2.8dbcf3c1.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.08041ba6.js",
     "static/js/2.8dbcf3c1.chunk.js",
     "static/css/main.11464817.chunk.css",
-    "static/js/main.433a9558.chunk.js"
+    "static/js/main.f810a6cb.chunk.js"
   ]
 }
