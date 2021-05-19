@@ -91,13 +91,13 @@ class App extends React.Component {
                 </div>
                 {(this.state.isSearchResultActive)&&(
                 <div className="resultBlock">
-                    {this.state.searchResult!="empty"&&this.state.searchResult.map((resultRow) => (
+                    {this.state.searchResult!=="empty"&&this.state.searchResult.map((resultRow) => (
                         <SearchResult
                             resultRow = {resultRow}
                             onRowClick = {() => this.handleRowClick(resultRow)}
                         />
                     ))}
-                    {(this.state.searchResult=="empty")&&(<div className="resultBlock__notFound">
+                    {(this.state.searchResult==="empty")&&(<div className="resultBlock__notFound">
                         По запросу {this.state.searchText} книг не найдено =(
                     </div>)}
                 </div>

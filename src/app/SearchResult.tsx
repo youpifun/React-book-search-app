@@ -36,17 +36,17 @@ class SearchResult extends React.Component <SearchResultProps> {
     }
 
     render() {
-        let {title , author_name, cover_i, publish_year} = this.props.resultRow;
-        let name = author_name.join(', ');
-        let imgSrc = this.getImage(cover_i);
-        let firstYearOfPulish = Math.min.apply(null, publish_year);
+        let name = this.props.resultRow.author_name?.join(', ');
+        let imgSrc = this.getImage(this.props.resultRow.cover_i);
+        let title = this.props.resultRow.title;
+        let firstYearOfPulish = Math.min.apply(null, this.props.resultRow.publish_year);
         const rowClick = () =>this.props.onRowClick()
         return(
                 <div className="resultRow" onClick={rowClick}>
                     <img className="resultRow__thumb" src={imgSrc} alt={title}/>
                     <div className="resultRow__info-block">
                         <p>Заголовок: {title}</p>
-                        <p>Имя автора: {name}</p>
+                        {(name)&&(<p>Имя автора: {name}</p>)}
                         <p>Год издательства: {firstYearOfPulish}</p>
                     </div>
                 </div>
